@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link href="style.css" rel="stylesheet">
+    <title>SignUp-Page</title>
+</head>
+<body>
+    <div id="content" class="wrapper ">
+        <span class="bg-animate-signup"></span>
+        <span class="bg-animate2-signup"></span>
+
+        
+<div class="form-box register">
+    <h2>SignUp</h2>
+    <form action="#">
+<div class="input-box">
+<input  type="text" required>
+<label>Username</label>
+<i class='bx bxs-user'></i>
+</div>
+<div class="input-box">
+    <input id="signup-email" type="email" required>
+    <label>Email</label>
+    <i class='bx bxs-envelope'></i>
+    </div>
+<div class="input-box">
+<input id="signup-password" type="password" required>
+<label>Password</label>
+<i class='bx bxs-lock-alt'></i>
+</div>
+<button type="submit" id="Signup-btn" class="btn">Sign Up</button>
+<div class="logreg-link">
+<p>Already have an account?<a href="./index.html" class="login-link"> Login
+</a></p>
+</div>
+    </form>
+</div>
+<div class="info-text register">
+    <h2>Welcome Back!</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+</div>
+    </div>
+
+    <!-- --------------------Loader ---------------------------- -->
+    <div id="loader" style="display: none;" class="loader">
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+      </div>
+
+    <script type="module" src="signup.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+</html>
