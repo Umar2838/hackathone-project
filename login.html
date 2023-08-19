@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login-Page </title>
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+            <!-- ---------------------------------------loader -------------------------------- -->
+            <div class=" body">
+    <div id="loader" style="display: none;" class="loader">
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+        <div class="l"></div>
+      </div>
+    <!-- Login Page -->
+   
+    <div id="content"  class="wrapper ">
+        <span class="bg-animate"></span>
+        <span class="bg-animate2"></span>
+
+        <div class="form-box login">
+            <h2  >Login</h2>
+            <form action="#">
+<div class="input-box">
+    <input id="login-email" type="text" required>
+    <label>Email</label>
+    <i class='bx bxs-envelope'></i>
+</div>
+<div class="input-box " >
+    <input id="login-password" type="password" required>
+    <label>Password</label>
+    <i class='bx bxs-lock-alt'></i>
+</div>
+<button type="submit" id="Login-btn" class="btn ">Login</button>
+<div class="other-login">
+    <i id="googlelogin" class='bx bxl-google'></i>
+    <i class='bx bxl-facebook-circle'></i>
+    <i class='bx bxl-github'></i>
+</div>
+<div class="logreg-link" >
+    <p>Don't have an account? <a href="./signup.html" class="register-link" > Sign Up</a></p>
+</div>
+            </form>
+        </div>
+        
+        <div class="info-text login">
+            <h2>Welcome Back!</h2>
+            <p >Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+        </div>
+
+    </div>
+      
+        <script type="module" src="login.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+</html>

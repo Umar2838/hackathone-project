@@ -53,7 +53,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 
@@ -62,7 +62,7 @@
     --bg-color : red ;
   
 }
-body{
+.body{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -294,4 +294,143 @@ padding: 0 40px 60px 150px;
     background: #081b29;
     transform:  rotate(0) skewY(0);
     transform-origin: bottom right; 
+}
+
+
+
+/* -----------------------------------------------------Mian Page--------------------------------- */
+.navbar{
+    background-color: var(--bg-color) ;
+}
+.nav-login{
+    background-color: #081b29 !important;
+    border-radius: 18px;
+    color: #fff !important;
+    font-size: 12px !important;
+    text-decoration: none;
+    margin-left: 10px;
+    width: 100px;
+    text-align: center;
+    transition: 0.5s ease ;
+    cursor: pointer;
+}
+.nav-login:hover{
+    opacity: 0.9;
+    background-color: #fff !important;
+    color: var(--bg-color) !important;
+    transform:  scale(1.1);
+   
+}
+h3{
+    background-color: #081b29;
+    color:var(--bg-color) !important;
+    padding: 3px 0 3px 3px ;
+}
+h4{    
+    padding-top: 10px;
+    text-align: center;
+    color: var(--bg-color) !important;
+}
+
+.main-div{
+    display: block;
+
+}
+.blogs{
+    margin-top: 50px;
+width: 600px;
+margin-top: 20px !important;
+height: 280px;
+margin: 0 auto;
+background: transparent;
+border: 2px solid var(--bg-color);
+box-shadow:  0 0 25px var(--bg-color);
+border-radius: 10px;
+overflow-y: scroll;
+}
+
+.blogs-img{
+    width: 60px;
+    height: 55px;
+    margin: 14px ;
+    border-radius: 10px;
+}
+
+.blogs-title{
+    font-size: 18px;
+   margin-top: 30px;
+}
+span{
+color: #a8a8a8;
+padding-left: 14px;
+margin-top: -14px;
+
+}
+
+p{
+padding-bottom: 10px;
+padding-left: 14px;
+
+
+}
+
+
+/* edit dashboard */
+
+.input-title{
+    border: 2px solid var(--bg-color);
+    width: 500px;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    
+}
+
+.blogs-post{
+    margin-top: 50px;
+    width: 600px;
+    height: 340px;
+    margin:  0 auto;
+    margin-top: 20px;
+    background: transparent;
+    border: 2px solid var(--bg-color);
+    box-shadow:  0 0 25px var(--bg-color);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.blog-parag{
+    border: 2px solid var(--bg-color) ;
+    border-radius: 10px;
+    resize: none;
+    padding-left: 10px;
+
+}
+hr{
+    
+    background-color: var(--bg-color);
+    height: 3px;
+}
+.blog-parag:focus{
+    outline: red;
+}
+
+.publish-btn{
+    width: 500px;
+    border-radius:10px ;
+    padding: 5px;
+    background-color: var(--bg-color);
+    border: 2px solid var(--bg-color);
+    margin-top: 10px;
+    
+}
+.publish-btn:hover{
+    opacity: 0.5;
+}
+
+
+
+.dashboard-div{
+    display: block;
+
 }

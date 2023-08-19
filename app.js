@@ -1,36 +1,77 @@
-import {app,auth } from "./firebase.js"
+import {app,db} from "./firebase.js"
+import { collection, addDoc,query, where,getDocs } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js"
 
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
+let greetings = document.getElementById("greeting")
 
-let loginEmail = document.getElementById("login-email")
-let loginPassword = document.getElementById("login-password")
-let content = document.getElementById("content")
-let loader = document.getElementById("loader")
-let LoginBtn = document.getElementById("Login-btn")
 
-LoginBtn.addEventListener("click",()=>{
-    loader.style.display="flex"
-    content.style.display="none"
-    const auth = getAuth();
-signInWithEmailAndPassword(auth, loginEmail.value, loginPassword.value)
-  .then((userCredential) => {
-    
-    const user = userCredential.user;
-   console.log(user)
-   loader.style.display="none"
+var currentDate = new Date();
+var currentHour = currentDate.getHours();
 
-   loginEmail.value=("")
+console.log(currentHour)
+let greeting;
+
+if (currentHour < 12) {
+  greeting = "Good morning,Readers";
+} else if (currentHour < 18) {
+  greeting = "Good afternoon,Readers";
+} else if (currentHour < 22) {
+  greeting = "Good evening,Reader";
+} else {
+  greeting = "Good night,Readers";
+}
+
+greetings.innerHTML += (
+`<h3 >${greeting}</h3>`   
+)
+
+
+let getData=async()=>{
+  let collectionarray=[]
  
-   window.location.href="./main.html"  
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-
-    console.log("error",errorMessage)
-  });
-
+  
+    const q = (collection(db, "blogs"))
     
-})
+  
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+      collectionarray.push(doc.data());
+      console.log(collectionarray.length)
+      console.log(collectionarray)
+      
+  
+    } );
+    console.log(collectionarray)
+  
+  for(var j=0;j<collectionarray.length;j++){
+  console.log("inside ",collectionarray)
+
+  let mainBlogs = document.getElementById("main-div")
 
 
+  mainBlogs.innerHTML += 
+        
+    `
+    <div class="blogs">
+    <div class="d-flex">
+    <img class="blogs-img" src="images/download.png">
+<h2 class="blogs-title">${collectionarray[j].Title}</h2> 
+
+</div>
+<div class="d-flex ">
+    <span>Elon Musk</span>
+    <span>-</span>
+    <span> 18/08/2023</span>
+    </div> 
+    
+    <p>${collectionarray[j].Content}</p>
+</div>
+`
+
+
+  }
+
+}
+
+
+getData()

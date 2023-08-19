@@ -3,64 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login-Page </title>
-    
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-<link href="style.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css
+    " rel="stylesheet">
+    <title>Blogging App</title>
 </head>
-<body>
+<body  >
+    <!-- Navbar -->
 
-            <!-- ---------------------------------------loader -------------------------------- -->
-
-    <div id="loader" style="display: none;" class="loader">
-        <div class="l"></div>
-        <div class="l"></div>
-        <div class="l"></div>
-        <div class="l"></div>
-        <div class="l"></div>
-        <div class="l"></div>
-        <div class="l"></div>
-        <div class="l"></div>
-        <div class="l"></div>
-      </div>
-    <!-- Login Page -->
-    <div id="content"  class="wrapper ">
-        <span class="bg-animate"></span>
-        <span class="bg-animate2"></span>
-
-        <div class="form-box login">
-            <h2  >Login</h2>
-            <form action="#">
-<div class="input-box">
-    <input id="login-email" type="text" required>
-    <label>Email</label>
-    <i class='bx bxs-envelope'></i>
-</div>
-<div class="input-box " >
-    <input id="login-password" type="password" required>
-    <label>Password</label>
-    <i class='bx bxs-lock-alt'></i>
-</div>
-<button type="submit" id="Login-btn" class="btn ">Login</button>
-<div class="other-login">
-    <i class='bx bxl-google'></i>
-    <i class='bx bxl-facebook-circle'></i>
-    <i class='bx bxl-github'></i>
-</div>
-<div class="logreg-link" >
-    <p>Don't have an account? <a href="./signup.html" class="register-link" > Sign Up</a></p>
-</div>
-            </form>
+    
+    <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><b>Personal Blogging Website</b></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class=" navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item  ">
+                <a class="nav-link nav-login " aria-current="page" href="./login.html">Login</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link nav-login" href="./signup.html">SignUp</a>
+              </li>
+            </ul>
+          </div>
         </div>
-        
-        <div class="info-text login">
-            <h2>Welcome Back!</h2>
-            <p >Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
-        </div>
+      </nav>
 
-   
-      
-        <script type="module" src="app.js"></script>
 
+   <h3 id="greeting" > </h3>
+   <h4>All Blogs</h4>
+<div class="main-div" id="main-div">
+ 
+
+
+  </div>
+
+</div>
+
+
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script type="module" src="app.js" ></script>
 </body>
 </html>
