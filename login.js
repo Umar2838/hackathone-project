@@ -1,68 +1,83 @@
-import {app,auth,provider } from "./firebase.js"
+import { app, auth, signInWithEmailAndPassword, onAuthStateChanged ,provider,GoogleAuthProvider,signInWithPopup} from "./firebase.js";
 
-import { getAuth, signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
 
-let loginEmail = document.getElementById("login-email")
-let loginPassword = document.getElementById("login-password")
-let content = document.getElementById("content")
-let loader = document.getElementById("loader")
-let LoginBtn = document.getElementById("Login-btn")
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // if(location.pathname !== "/dashboard.html")
+location.href="dashboard.html"
+console.log("user found",user)
+    const uid = user.uid;
+    // ...
+  } else {
+console.log("user not found")
+  }
+});
+
+let LoginBtn = document.getElementById("Login-btn");
+
+LoginBtn.addEventListener("click", () => {
+  let loginEmail = document.getElementById("login-email");
+  let loginPassword = document.getElementById("login-password");
+  let content = document.getElementById("content");
+  let loader = document.getElementById("loader");
+
+ 
+
+  LoginBtn.disabled = true;
+  loader.style.display = "flex";
+  content.style.display = "none";
+
+  signInWithEmailAndPassword(auth, loginEmail.value, loginPassword.value)
+    .then(() => {
+      loader.style.display = "none";
+
+      // Check for user authentication state change
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // console.log("user found");
+        } else {
+          // console.log("user not found");
+        }
+        LoginBtn.disabled = false;
+
+      });
+    })
+    .catch((error) => {
+      const errorMessage = error.message;
+
+      console.log("error",errorMessage)
+      if (errorMessage) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: errorMessage,
+        });
+        loader.style.display = "none";
+        content.style.display = "block";
+        LoginBtn.disabled = false;
+
+      }
+    });
+});
+
 let googleLogin = document.getElementById("googlelogin")
+googleLogin.addEventListener("click",()=>{
 
-LoginBtn && LoginBtn.addEventListener("click",()=>{
-    loader.style.display="flex"
-    content.style.display="none"
-    const auth = getAuth();
-signInWithEmailAndPassword(auth, loginEmail.value, loginPassword.value)
-  .then((userCredential) => {
-    
-    const user = userCredential.user;
-   console.log(user)
-   loader.style.display="none"
-   window.location.href="./dashboard.html"  
-  })
-  .catch((error) => {
+  signInWithPopup(auth, provider)
+  .then((result) => {
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+
+    const user = result.user;
+   console.log("user",user)
+  }).catch((error) => {
+
     const errorCode = error.code;
     const errorMessage = error.message;
-
-    if(errorMessage ){
-
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: errorMessage,
-      })
-      loader.style.display="none"
-      content.style.display="block"
-    }
-
   
-
-    
+    const email = error.customData.email;
+    console.log("error",error,email)
+    const credential = GoogleAuthProvider.credentialFromError(error);
+  
   });
-
-
 })
-
-// googleLogin.addEventListener("click",()=>{
-
-//   signInWithPopup(auth, provider)
-//   .then((result) => {
-//     // This gives you a Google Access Token. You can use it to access the Google API.
-//     const credential = GoogleAuthProvider.credentialFromResult(result);
-//     const token = credential.accessToken;
-
-//     const user = result.user;
- 
-//   }).catch((error) => {
- 
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     // The email of the user's account used.
-//     const email = error.customData.email;
-//     // The AuthCredential type that was used.
-//     const credential = GoogleAuthProvider.credentialFromError(error);
-//     // ...
-//   });
-
-// })

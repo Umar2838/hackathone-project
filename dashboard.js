@@ -1,20 +1,16 @@
-import {app,db} from "./firebase.js"
-import { getAuth,signOut  } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
-import { collection, addDoc,query, where,getDocs } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js"
+import {app,db,signOut,serverTimestamp,auth,collection,doc, query, where,getDocs,getDoc,onAuthStateChanged,addDoc} from "./firebase.js"
+
+
+
+// Sign Out User ---------------------------------------------------------------------------------------
 
 
 
 let Signout = document.getElementById("signout")
-
-const auth = getAuth(app);
-
 Signout.addEventListener("click",()=>{
   signOut(auth).then(() => {
-    console.log()
-    window.location.assign("../index.html")
+    location.href("../index.html")
  
-    
-  
   }).catch((error) => {
     Swal.fire({
       icon: 'error',
@@ -25,160 +21,174 @@ Signout.addEventListener("click",()=>{
 
 })
 
+// -----------------------------------------------------
 
 
-// Posted Blog
-
-let InputTitle = document.getElementById("input-title")
-let InputContent = document.getElementById("Input-content")
-let sortedcollectionarray=[]
 
 
-// Getting data from firebase and writig it
-var uid = localStorage.getItem("refuid")
-let getData=async()=>{
-  let collectionarray=[]
-  console.log(uid)
+var uid = localStorage.getItem("userid")
+
+
+    const docRef = doc(db, "users", uid  );
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+
+      var Username = docSnap.data().name
+      var Profile = docSnap.data().profile 
+
+      console.log("Profile",Profile)
+     
+      let dashboardUsername = document.getElementById("dashboard-username")
+
+      dashboardUsername.innerHTML +=(
+    
+        `    <a class="nav-link nav-login "  aria-current="page" id="signout" href="./profile.html">${docSnap.data().name}</a>
+        `
+    )
+
+      }
+
+  
+ 
+
+
+
+
+  let content = document.getElementById("content");
+  let loader = document.getElementById("loader");
+
+const submitBlog = async () =>{
+   let InputTitle = document.getElementById("input-title")
+    let InputContent = document.getElementById("Input-content")
+   
+    
+loader.style.display="flex"
+content.style.display="none"
+    const docRef = await addDoc(collection(db, "blogs"), {
+      Title: InputTitle.value,
+      Content: InputContent.value,
+      time: serverTimestamp(),
+      userid : uid,
+      username : Username, 
+   profile:  Profile 
+     
+    });
+InputTitle.value=""
+InputContent.value=""
+loader.style.display="none"
+content.style.display="block"
+      Swal.fire(
+      'Blog!',
+      'Blog Published!',
+      'success'
+    )
+    
+
+
+
+  }
+
+
+  const getcurrentuserBlogs  = async(uid)=>{
+    let postedBlog = document.getElementById("posted-blog")
+  
     const q = query(collection(db, "blogs"), where("userid", "==", uid));
   
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-      collectionarray.push(doc.data());      
   
-    } );
-    console.log(collectionarray)
-    for(var i=0;i<collectionarray.length;i++){
-     if(collectionarray[i].userid==uid){
-      sortedcollectionarray.push(collectionarray[i])
-      console.log("sortedcollection",sortedcollectionarray)
-     }
-     else{
-      console.log("Error is not sorted")
-     }
-  }
-
-  console.log("soreghsghdsg",sortedcollectionarray);
-  for(var j=0 ; j<sortedcollectionarray.length ; j++){
-    console.log([j])
-    
+    console.log("current user data",doc.data())
+  
     postedBlog.innerHTML += (
+            
+            `
         
-      `
+        <div class="blogs">
+          <div class="d-flex">
+          <img class="blogs-img" src="${Profile || Profile == "undefined" ? Profile : "images/download.png"}">
+        <h2 class="blogs-title">${doc.data().Title}</h2> 
+        
+        </div>
+        <div class="d-flex ">
+          <span>${doc.data().username}</span>
+          <span>${doc.data().time.toDate().toDateString()}</span>
+          </div>   
+          <hr>
+          <p>${doc.data().Content}</p>
+        </div>
+        
+        
+        `
+        
   
-  <div class="blogs">
-    <div class="d-flex">
-    <img class="blogs-img" src="images/download.png">
-  <h2 class="blogs-title">${sortedcollectionarray[j].Title}</h2> 
+        )
+     
   
-  </div>
-  <div class="d-flex ">
-    <span>${username}</span>
-    <span>-</span>
-    <span> 18/08/2023</span>
-    </div>   
-    <hr>
-    <p>${sortedcollectionarray[j].Content}</p>
-  </div>
+     
   
   
-  `
-  
-  )
- 
   }
-
-   
-}
-
-
-
-
+    )}
   
-
-let postedBlog = document.getElementById("posted-blog")
-
-publishedpost.addEventListener(("click"), async()=>{
-
-
-  
-  if(InputTitle.value == "".trim() && InputContent.value == "".trim() ){
-    Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: "Please Input Something " ,
-        // footer: '<a href="">Why do I have this issue?</a>'
-      })
-
-      postedBlog.innerHTML =""
-}else if(InputTitle.value.length < 3 ){
-  Swal.fire({
-    icon: 'error',
-    title: 'Oops...',
-    text: "Title Characters must be greather than 3 " ,
-    // footer: '<a href="">Why do I have this issue?</a>'
-  })
-}
-else if(InputContent.value.length < 100 ){
-  Swal.fire({
-    icon: 'error',
-    title: 'Oops...',
-    text: "Content Characters must be greather than 100 " ,
-    // footer: '<a href="">Why do I have this issue?</a>'
-  })
-} 
-
-
-postedBlog.innerHTML += (
-        
-  `
-
-<div class="blogs">
-<div class="d-flex">
-<img class="blogs-img" src="images/download.png">
-<h2 class="blogs-title">${sortedcollectionarray.Title}</h2> 
-
-</div>
-<div class="d-flex ">
-<span>${username}</span>
-<span>-</span>
-<span> 18/08/2023</span>
-</div> 
-
-<p>${sortedcollectionarray.Content}</p>
-</div>
-
-
-`
-
-)
-
-
-
-  var uid = localStorage.getItem("refuid")
-  const docRef = await addDoc(collection(db, "blogs"), {
-   Title: InputTitle.value,
-   Content:InputContent.value,
-   userid: uid,
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      if(location.pathname !== "/dashboard.html" && flag)
+  location.href="dashboard.html"
+  getcurrentuserBlogs(user.uid)
+  console.log("user found",user)
+      const uid = user.uid;
+      localStorage.setItem("userid",uid)
+      // ...
+    } else {
+  console.log("user not found")
+    }
   });
-
-  console.log("Document written with ID: ", docRef.id);
-
-   
-   getData()
-       
-    })
-    
-
-let dashboardUsername = document.getElementById("dashboard-username")
-var username = localStorage.getItem("username")
-
-dashboardUsername.innerHTML +=(
-    
-    `                    <a class="nav-link nav-login "  aria-current="page" id="signout" href="./dashboard.html">${username}</a>
-    `
-)
-
-getData()
   
+
+  let publishedpost = document.getElementById("publishedpost")
+
+  publishedpost.addEventListener("click",submitBlog)
+    
+
+
+    
+
+    
+ 
+    
+
+
+
+    
+    
+    
+    
+    
+    
+
+
+    
+
+  
+
+  
+  
+
+
+  
+    
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+

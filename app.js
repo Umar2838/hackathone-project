@@ -1,77 +1,90 @@
-import {app,db} from "./firebase.js"
-import { collection, addDoc,query, where,getDocs } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js"
+import {app,auth,doc,getDoc,db,collection,query, where,getDocs} from "./firebase.js"
+
 
 let greetings = document.getElementById("greeting")
 
 
+
 var currentDate = new Date();
 var currentHour = currentDate.getHours();
+var isMorning = currentHour > 12;
+var isAfternoon = currentHour <= 12 && currentHour > 18;
+var isEvening = currentHour <= 18 && currentHour > 22;
 
-console.log(currentHour)
+// Convert to 12-hour format
+var displayHour = currentHour % 12 || 12; // Get the remainder, or 12 if 0
+
 let greeting;
 
-if (currentHour < 12) {
-  greeting = "Good morning,Readers";
-} else if (currentHour < 18) {
-  greeting = "Good afternoon,Readers";
-} else if (currentHour < 22) {
-  greeting = "Good evening,Reader";
+if (isMorning) {
+  greeting = `Good morning, Readers`;
+} else if (isAfternoon) {
+  greeting = `Good afternoon, Readers`;
+} else if (isEvening) {
+  greeting = `Good evening, Reader`;
 } else {
-  greeting = "Good night,Readers";
+  greeting = `Good night, Readers`;
 }
-
 greetings.innerHTML += (
 `<h3 >${greeting}</h3>`   
 )
 
 
-let getData=async()=>{
-  let collectionarray=[]
- 
-  
-    const q = (collection(db, "blogs"))
-    
-  
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-      collectionarray.push(doc.data());
-      console.log(collectionarray.length)
-      console.log(collectionarray)
-      
-  
-    } );
-    console.log(collectionarray)
-  
-  for(var j=0;j<collectionarray.length;j++){
-  console.log("inside ",collectionarray)
-
-  let mainBlogs = document.getElementById("main-div")
 
 
-  mainBlogs.innerHTML += 
-        
-    `
-    <div class="blogs">
-    <div class="d-flex">
-    <img class="blogs-img" src="images/download.png">
-<h2 class="blogs-title">${collectionarray[j].Title}</h2> 
+const getAllBlogs =  async ()=>{
+
+  var uid = localStorage.getItem("userid")
+  console.log("uid ",uid)
+  
+  const docRef = doc(db, "users", uid  );
+  
+  
+  const docSnap = await getDoc(docRef);
+
+
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data());
+  } else {
+    console.log("No such document!");
+  }
+  
+
+  const querySnapshot = await getDocs(collection(db, "blogs"));
+  querySnapshot.forEach((doc) => {
+    console.log(doc.id, " user data ", doc.data().profile);
+
+    let mainBlogs = document.getElementById("main-div")
+
+
+    mainBlogs.innerHTML += (
+          `
+  <div class="blogs">
+  <div class="d-flex ">
+  <img class="blogs-img" src="${doc.data().profile }">
+<h2 class="blogs-title">${doc.data().Title}</h2> 
 
 </div>
 <div class="d-flex ">
-    <span>Elon Musk</span>
-    <span>-</span>
-    <span> 18/08/2023</span>
-    </div> 
-    
-    <p>${collectionarray[j].Content}</p>
-</div>
-`
+  <span>${doc.data().username}</span>
+  <span>${doc.data().time.toDate().toDateString()}</span>
+  </div>   
+  <hr>
+  <p>${doc.data().Content}</p>
 
+</div>
+  `
+  
+   )
+  
+  })
+
+   
 
   }
+getAllBlogs()
 
-}
 
 
-getData()
+
+

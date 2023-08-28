@@ -1,42 +1,53 @@
-import {app,auth,db} from "./firebase.js"
-
-import { getAuth, createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
-import {  doc, setDoc } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
+import {app,auth,db,createUserWithEmailAndPassword,setDoc,doc,onAuthStateChanged} from "./firebase.js"
+let flag = true;
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    if(location.pathname !== "/dashboard.html" && flag)
+location.href="dashboard.html"
+console.log("user found",user)
+    const uid = user.uid;
+    localStorage.setItem("userid",uid)
+    // ...
+  } else {
+console.log("user not found")
+  }
+});
 
 
 let SignBtn = document.getElementById("Signup-btn")
 
-let signupEmail = document.getElementById("signup-email")
+
+
+SignBtn.addEventListener("click",()=>{
+  let signupEmail = document.getElementById("signup-email")
 let signupPassword = document.getElementById("signup-password")
 let username = document.getElementById("username")
 let content = document.getElementById("content")
 let loader = document.getElementById("loader")
+let inputbox = document.querySelector(".input-box") 
 
-SignBtn.addEventListener("click",()=>{
+  
+    loader.style.display="flex"
+    flag = false 
+  content.style.display="none" 
  
-  loader.style.display="flex"
-content.style.display="none"
-
-    const auth = getAuth();
     createUserWithEmailAndPassword(auth, signupEmail.value, signupPassword.value)
-      .then(async(userCredential)  => {
-
-        await setDoc(doc(db, "users", uid), {
+      .then( async (userCredential)  => {
+        const user = userCredential.user;
+      
+        await setDoc(doc(db, "users", user.uid), {
           name: username.value,
           email: signupEmail.value,
-          uid: uid,
-        });
+          userid: user.uid,
+          password:signupPassword.value,
+      })
+      flag= true
+      console.log(user)
+      console.log("user data saved")
 
-        const user = userCredential.user;
-        console.log(user)
-
-        var uid = localStorage.getItem("refuid")
-        localStorage.setItem("refuid",user.uid)
-       localStorage.setItem("username",username.value)
-    
-       window.location.href="./dashboard.html"
-  
-            })
+loader.style.display="none"        
+  location.href="./dashboard.html"    
+      })       
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -49,11 +60,10 @@ content.style.display="none"
         // footer: '<a href="">Why do I have this issue?</a>'
       })
       console.log(errorMessage)
+     
       loader.style.display="none"
       content.style.display="block"
     }
       });
-
- 
 
 })
