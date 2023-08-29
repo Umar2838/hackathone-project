@@ -335,7 +335,9 @@ h4{
 .main-div{
     display: block;
 
+
 }
+
 .blogs{
     margin-top: 50px;
 width: 600px;
@@ -347,6 +349,12 @@ border: 2px solid var(--bg-color);
 box-shadow:  0 0 25px var(--bg-color);
 border-radius: 10px;
 overflow-y: scroll;
+position: relative;
+}
+h5{
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 0;
 }
 
 .blogs-img{
@@ -392,7 +400,7 @@ padding-left: 14px;
     margin-top: 50px;
     width: 600px;
     height: 340px;
-    margin:  0 auto;
+    margin: 0 auto;
     margin-top: 20px;
     background: transparent;
     border: 2px solid var(--bg-color);
@@ -437,7 +445,6 @@ width: 100px;
 height: 100px;
 object-fit: cover;
 border-radius: 50px;
-
 position: relative;
 }
 
@@ -466,10 +473,11 @@ h3 >a{
 
 }
 .edittrash{
-    margin-top: 25px;
-    margin-right: 10px;
-    margin-left: 10px;
+  top: 5px;
+  right: 10px;
     font-size: 28px;
+    position: absolute;
+  
 }
 .edit:hover{
     opacity: 0.6;
@@ -477,4 +485,60 @@ h3 >a{
 .trash:hover{
     opacity: 0.6;
 
+}
+
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm{
+    background-color: red !important;
+}
+div:where(.swal2-icon).swal2-success .swal2-success-ring {
+    position: absolute;
+    z-index: 2;
+    top: -0.25em;
+    left: -0.25em;
+    box-sizing: content-box;
+    width: 100%;
+    height: 100%;
+    border: .25em solid red !important;
+    border-top-width: 0.25em;
+    border-right-width: 0.25em;
+    border-bottom-width: 0.25em;
+    border-left-width: 0.25em;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-top-color: red !important;
+    border-right-color: red !important;
+    border-bottom-color: red !important;
+    border-left-color: red !important;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    border-radius: 50%;
+}
+div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-tip{
+    background-color: red;
+}
+div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-long{
+    background-color: red;
+}
+
+
+.custom-modal{
+ width: 60%;
+ margin: 0 auto;
+ background-color: #FFF;
+ position: fixed;
+ top: 30%;
+ left:20% ;
+}
+.crosslogo{
+   
+    font-size: 32px;
+    right: 10px;
+    color: red;
+    position: absolute;
 }

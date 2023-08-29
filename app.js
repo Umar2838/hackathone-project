@@ -5,14 +5,15 @@ let greetings = document.getElementById("greeting")
 
 
 
-var currentDate = new Date();
-var currentHour = currentDate.getHours();
-var isMorning = currentHour > 12;
-var isAfternoon = currentHour <= 12 && currentHour > 18;
-var isEvening = currentHour <= 18 && currentHour > 22;
+
 
 // Convert to 12-hour format
-var displayHour = currentHour % 12 || 12; // Get the remainder, or 12 if 0
+
+var currentDate = new Date();
+var currentHour = currentDate.getHours();
+var isMorning = currentHour < 12;
+var isAfternoon = currentHour >= 12 && currentHour < 18;
+var isEvening = currentHour <= 18 ;
 
 let greeting;
 
@@ -62,13 +63,13 @@ const getAllBlogs =  async ()=>{
   <div class="blogs">
   <div class="d-flex ">
   <img class="blogs-img" src="${doc.data().profile }">
-<h2 class="blogs-title">${doc.data().Title}</h2> 
+<h2 class="blogs-title">${doc.data().username}</h2> 
 
 </div>
 <div class="d-flex ">
-  <span>${doc.data().username}</span>
   <span>${doc.data().time.toDate().toDateString()}</span>
   </div>   
+<h5>${doc.data().Title}</h5>
   <hr>
   <p>${doc.data().Content}</p>
 

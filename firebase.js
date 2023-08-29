@@ -1,7 +1,7 @@
 
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-analytics.js";
-  import { getFirestore,serverTimestamp,getDoc,addDoc,setDoc,doc,collection,query,updateDoc, where,getDocs} from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
+  import { getFirestore,serverTimestamp,deleteDoc,getDoc,addDoc,setDoc,doc,collection,query,updateDoc, where,getDocs} from "https://www.gstatic.com/firebasejs/10.2.0/firebase-firestore.js";
   import { getAuth,onAuthStateChanged, signInWithPopup,createUserWithEmailAndPassword,signInWithEmailAndPassword,GoogleAuthProvider,signOut  } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
   import { getStorage, ref,uploadBytesResumable,getDownloadURL } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-storage.js";
   const firebaseConfig = {
@@ -24,4 +24,4 @@
  
 
 
-  export {app,serverTimestamp,auth,getStorage,uploadBytesResumable,getDownloadURL,storage, ref,db,getDoc,collection,query,setDoc,signInWithPopup,updateDoc, where,getDocs,createUserWithEmailAndPassword,onAuthStateChanged,signInWithEmailAndPassword,signOut,doc,provider,GoogleAuthProvider,addDoc}  
+  export {app,serverTimestamp,deleteDoc,auth,getStorage,uploadBytesResumable,getDownloadURL,storage, ref,db,getDoc,collection,query,setDoc,signInWithPopup,updateDoc, where,getDocs,createUserWithEmailAndPassword,onAuthStateChanged,signInWithEmailAndPassword,signOut,doc,provider,GoogleAuthProvider,addDoc}  
