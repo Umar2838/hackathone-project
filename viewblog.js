@@ -34,10 +34,7 @@ userview.innerHTML =(
             `
         
         <div class="blogs">
-        <div class="edittrash">
-  <i class='bx bxs-edit edit' onclick="editBlog('${doc.id}','${doc.data().Title}','${doc.data().Content}')"  style="color:red;"></i>
-  <i class='bx bxs-trash-alt trash' onclick="deleteBlog('${doc.id}')" style="color:red;"></i>
-  </div>
+        
           <div class="d-flex ">
           <img class="blogs-img" src="${doc.data().profile}">
         <h2 class="blogs-title">${doc.data().username}</h2> 
