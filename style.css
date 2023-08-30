@@ -542,3 +542,97 @@ div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-long{
     color: red;
     position: absolute;
 }
+.viewblogs>a{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color:red ;
+  
+
+}
+.viewblogs:hover{
+    text-decoration: underline;
+
+}
+
+.section{
+    display: flex;
+   flex-basis: 2;
+}
+
+.userdiv{
+    text-align: center;
+    
+}
+.userimg{
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+}
+h2{
+    margin-top:10px ;
+}
+
+
+
+
+/* Responsive */
+
+
+@media only screen and (max-width:600px) {
+    
+.blogs{
+    width: 90%;
+    margin-left: 20px;
+}
+.viewblogs{
+   font-size: 14px;
+   padding-top: 0px;
+}
+.wrapper{
+    width: 90%;
+ 
+}
+.form-box{
+ 
+   padding: 100px;
+    width: 500px;
+   
+ 
+}
+.input-box input{
+    width: 150px;
+    
+ 
+}
+.input-box i{
+   display: none;
+}
+
+.info-text>h2,p{
+    display: none;
+}
+.btn{
+    width: 100px;
+    margin:  0 auto;
+}
+.other-login{
+  padding-left: 55px;
+}
+.info-text>h3{
+    width: 100px;
+    margin-right: -200px;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+

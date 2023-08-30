@@ -1,4 +1,28 @@
-import {app,auth,doc,getDoc,db,collection,query, where,getDocs} from "./firebase.js"
+import {app,auth,doc,getDoc,db,collection,query, where,getDocs,onAuthStateChanged} from "./firebase.js"
+
+
+
+onAuthStateChanged(auth, (user) => {
+  let dashboardbtn = document.getElementById("dashboardbtn")
+  let loginsignup = document.querySelector(".loginsignup")
+  let signuplogin = document.querySelector(".signuplogin")
+  if (user) {
+dashboardbtn.innerHTML=(
+
+  `
+                <a class="nav-link nav-login" href="./dashboard.html">Dashboard</a>
+          
+  `
+
+)
+loginsignup.style.display="none"
+signuplogin.style.display="none"
+  } else {
+console.log("user not found")
+  }
+});
+
+
 
 
 let greetings = document.getElementById("greeting")
@@ -30,25 +54,28 @@ greetings.innerHTML += (
 `<h3 >${greeting}</h3>`   
 )
 
+let content = document.getElementById("content");
+let loader = document.getElementById("loader");
 
 
-
+loader.style.display="flex"
+content.style.display="none"
 const getAllBlogs =  async ()=>{
-
-  var uid = localStorage.getItem("userid")
-  console.log("uid ",uid)
+ 
+  // var uid = localStorage.getItem("userid")
+  // console.log("uid ",uid)
   
-  const docRef = doc(db, "users", uid  );
+  // const docRef = doc(db, "users", uid  );
   
   
-  const docSnap = await getDoc(docRef);
+  // const docSnap = await getDoc(docRef);
 
 
-  if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
-  } else {
-    console.log("No such document!");
-  }
+  // if (docSnap.exists()) {
+  //   console.log("Document data:", docSnap.data());
+  // } else {
+  //   console.log("No such document!");
+  // }
   
 
   const querySnapshot = await getDocs(collection(db, "blogs"));
@@ -63,9 +90,9 @@ const getAllBlogs =  async ()=>{
   <div class="blogs">
   <div class="d-flex ">
   <img class="blogs-img" src="${doc.data().profile }">
-<h2 class="blogs-title">${doc.data().username}</h2> 
-
+<h2 class="blogs-title">${doc.data().username}</h2>
 </div>
+<h5 class="viewblogs"><a href="./viewblog.html?user=${doc.data().userid}" >View All Blogs<i class='bx bxs-right-arrow'></i></a> </h5>
 <div class="d-flex ">
   <span>${doc.data().time.toDate().toDateString()}</span>
   </div>   
@@ -80,9 +107,11 @@ const getAllBlogs =  async ()=>{
   
   })
 
-   
+  loader.style.display="none"
+  content.style.display="block"
 
   }
+
 getAllBlogs()
 
 

@@ -50,33 +50,7 @@ let loader = document.getElementById("loader");
       })
       }
     
-      let updateBtn = document.getElementById("updatebtn")
-
-updateBtn.addEventListener("click",async()=>{
-  let fullname = document.getElementById("fullname")
-
-
-loader.style.display="flex"
-content.style.display="none" 
- const user = {
-  name: fullname.value,
- 
- }
-  if(fileInput.files[0]){
-    user.profile =  await uploadFile(fileInput.files[0])
-  }
-  const userRef = doc(db, "users", userid );
-  await updateDoc(userRef, user );
-loader.style.display="none"
-content.style.display="block"
-Swal.fire(
-  'Profile!',
-  'Your Profile is Updated!',
-  'success'
-)
-
-})
-
+      
 var userid = localStorage.getItem("userid")
 
 let email = document.getElementById("login-email")
@@ -90,15 +64,10 @@ loader.style.display="flex"
 content.style.display="none"
 const docSnap = await getDoc(docRef);
 
-// var userProfile = docSnap.data().profile
-
-
-
 if (docSnap.exists()) {
-  console.log("Document data:", docSnap.data());
   fullname.value =  docSnap.data().name
   email.value = docSnap.data().email
-  profilepicture.src = docSnap.data().profile 
+  profilepicture.src = docSnap.data().profile && docSnap.data().profile !== "undefined" ? docSnap.data().profile : "images/download.png"
   loader.style.display="none"
   content.style.display="block"
 } 
@@ -123,3 +92,29 @@ infotext.innerHTML = (
 
 
 
+let updateBtn = document.getElementById("updatebtn")
+
+updateBtn.addEventListener("click",async()=>{
+  let fullname = document.getElementById("fullname") 
+
+
+loader.style.display="flex"
+content.style.display="none" 
+ const user = {
+  name: fullname.value,
+ 
+ }
+  if(fileInput.files[0]){
+    user.profile =  await uploadFile(fileInput.files[0])
+  }
+  const userRef = doc(db, "users", userid );
+  await updateDoc(userRef, user );
+loader.style.display="none"
+content.style.display="block"
+Swal.fire(
+  'Profile!',
+  'Your Profile is Updated!',
+  'success'
+)
+
+})

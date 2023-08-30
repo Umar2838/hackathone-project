@@ -81,3 +81,14 @@ googleLogin.addEventListener("click",()=>{
   
   });
 })
+
+let infotext = document.querySelector(".info-text")
+
+infotext.innerHTML +=(
+`
+<h3><i class='bx bxs-left-arrow' style='color:#f5f0f0'  ></i><a href="./index.html">All BLogs</a></h3>
+<h2>Welcome Back!</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+`
+
+)
