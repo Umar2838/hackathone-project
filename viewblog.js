@@ -1,8 +1,11 @@
 import {app,db,collection,query,where,getDocs} from "./firebase.js"
 
 
+let content = document.getElementById("content");
+let loader = document.getElementById("loader");
 
-
+loader.style.display="flex"
+content.style.display="none"
 const getuserBlogs = async() =>{
 
     const urlParam = new URLSearchParams(location.search)
@@ -56,10 +59,9 @@ userview.innerHTML =(
   
         )
      
-  
-     
-  console.log(doc.data())
-  
+
+  loader.style.display="none"
+content.style.display="block"
   }
     )}
   

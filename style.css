@@ -191,6 +191,7 @@ top: 0;
     color: var(--bg-color) ;
     text-decoration: none;
     font-weight: 600;
+    text-align: center;
 }
 .logreg-link p a:hover{
     text-decoration: underline;
@@ -473,7 +474,7 @@ h3 >a{
 
 }
 .edittrash{
-  top: 5px;
+  top: 0;
   right: 10px;
     font-size: 28px;
     position: absolute;
@@ -528,12 +529,13 @@ div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-long{
 
 
 .custom-modal{
- width: 60%;
- margin: 0 auto;
+
  background-color: #FFF;
- position: fixed;
- top: 30%;
- left:20% ;
+  position: fixed;
+  width: 100%;
+  margin: -600px auto;
+
+
 }
 .crosslogo{
    
@@ -583,7 +585,7 @@ h2{
     
 .blogs{
     width: 90%;
-    margin-left: 20px;
+    /* margin-left: 20px; */
 }
 .viewblogs{
    font-size: 14px;
@@ -601,31 +603,96 @@ h2{
  
 }
 .input-box input{
-    width: 150px;
+    width: 200px;
+    margin-left: -20px;
+    font-size: 14px;
     
  
 }
-.input-box i{
+.input-box>i{
    display: none;
 }
-
-.info-text>h2,p{
+.info-text>h2{
     display: none;
 }
+.info-text>h3{
+position: absolute;
+width: 100%;
+left: 0px;
+top: 50px;
+}
 .btn{
-    width: 100px;
-    margin:  0 auto;
+    width: 150px;
+   
 }
 .other-login{
   padding-left: 55px;
 }
+.login{
+    margin-top: 20px;
+}
+
 .info-text>h3{
     width: 100px;
+    margin-top: -30px;
+    margin-left: 0px;
     margin-right: -200px;
 }
+.info-text>p{
+    display: none;
 }
+.blogs-post{
+    width: 90%;
+}
+.input-title{
+    width: 90%;
+}
+.blog-parag{
+    width: 90%;
+}
+.publish-btn{
+    width: 90%;
+}
+.camera{
+    position: absolute;
+    right: 100px;
+}
+.crosslogo{
+    top: -7px;
+    right: 0;
+}
+.other-login{
+    margin-left:-60px ;
+}
+.logreg-link{
+   
+    width: 250px;
+text-align: center;
+padding-right: 100px;
+}
+.register{
+    margin-right: 150px;
+}
+}
+@media only screen and (max-width:500px) {
 
-
+    .other-login{
+margin-left: -15px;
+    }
+}
+@media only screen and (max-width:400px) {
+    .camera{
+        right: 40px;
+    }
+    .other-login{
+        margin-left: 15px;
+            }
+}
+@media only screen and (max-width:320px) {
+    .camera{
+        right: 10px;
+    }
+}
 
 
 
