@@ -75,9 +75,9 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     if (location.pathname !== "/dashboard.html" && flag)
       location.href = "dashboard.html"
-    getcurrentuserBlogs(user.uid)
+   
     const uid = user.uid;
-    localStorage.setItem("userid", uid)
+    localStorage.setItem("loginuserid", uid)
     // ...
   } else {
     console.log("user not found")
@@ -88,7 +88,7 @@ onAuthStateChanged(auth, (user) => {
 
 
 
-
+var uid = localStorage.getItem("loginuserid")
 
 const docRef = doc(db,"users",uid);
 const docSnap = await getDoc(docRef);
@@ -136,6 +136,7 @@ const submitBlog = async () => {
     'success'
   )
 }
+getcurrentuserBlogs(uid)
 
 let publishedpost = document.getElementById("publishedpost")
 

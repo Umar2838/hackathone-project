@@ -7,6 +7,8 @@ onAuthStateChanged(auth, (user) => {
 location.href="dashboard.html"
 console.log("user found",user)
     const uid = user.uid;
+    localStorage.setItem("loginuserid",uid)
+    
     // ...
   } else {
 console.log("user not found")

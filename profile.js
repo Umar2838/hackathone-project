@@ -7,7 +7,8 @@ let loader = document.getElementById("loader");
 
 
  
-
+loader.style.display="flex"
+content.style.display="none" 
     var fileInput = document.getElementById("fileInput")
 
   fileInput.addEventListener("change",(e)=>{
@@ -52,14 +53,14 @@ let loader = document.getElementById("loader");
     
       
 var userid = localStorage.getItem("userid")
-
+var loginuserid = localStorage.getItem("loginuserid")
 let email = document.getElementById("login-email")
 let fullname = document.getElementById("fullname")
 let infotext = document.querySelector(".info-text")
 var profilepicture = document.getElementById("profilepicture")
 
 
-const docRef = doc(db, "users", userid  );
+const docRef = doc(db, "users", userid || loginuserid  );
 loader.style.display="flex"
 content.style.display="none"
 const docSnap = await getDoc(docRef);
@@ -107,7 +108,7 @@ content.style.display="none"
   if(fileInput.files[0]){
     user.profile =  await uploadFile(fileInput.files[0])
   }
-  const userRef = doc(db, "users", userid );
+  const userRef = doc(db, "users", userid || loginuserid );
   await updateDoc(userRef, user );
 loader.style.display="none"
 content.style.display="block"
